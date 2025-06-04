@@ -1,4 +1,3 @@
 package com.example.seamlesstranslation.data
 
-class TranslationRepositoryImpl {
-}
+data class VoiceToTextData(val text : String)

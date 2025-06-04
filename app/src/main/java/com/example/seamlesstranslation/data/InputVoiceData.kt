@@ -1,4 +1,3 @@
 package com.example.seamlesstranslation.data
 
-class DataResource {
-}
+data class InputVoiceData(val voice : String)

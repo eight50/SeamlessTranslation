@@ -1,66 +1,81 @@
 @startuml
 
 package Domain {
-    entity Entity {
-        - originalText
-        - translatedText
-        - fromLang
-        - toLang
+
+    together {
+        class TranslationEntity {
+            - originalText
+            - translatedText
+            - fromLang
+            - toLang
+        }
+
+        enum Lang {
+            - EN
+            - JP
+        }
     }
 
-    interface TranslationRepository {
-        - translate()
-        - storeData()
+    together {
+        class TranslationUseCase {
+
+        }
+
+        class RecordUseCase {
+
+        }
+
+        class VoiceToTextUseCase {
+
+        }
+    }
+
+    together {
+        interface TranslationRepository {
+            - translate()
+            - storeTextData()
+        }
+
+        interface RecordRepository {
+            - storeVoiceData()
+        }
+
+        interface VoiceToTextRepository {
+            - convertVoiceToText()
+
+        }
+
+        interface VoiceInput {
+            - RecordUseCaseがRecordRepositoryに録音を依頼。
+            - 実際にはデータ層で録音し、保存
+        }
+
     }
 
     class TranslationOutputPort {
-
+        - originalText
+        - translatedText
     }
 
-    class TranslationUseCase {
 
 
-    }
+    TranslationEntity --right> Lang
+    TranslationUseCase --up> TranslationEntity
+    TranslationUseCase --> TranslationRepository
+    TranslationUseCase --> TranslationOutputPort
+    RecordUseCase --up> TranslationEntity
+    RecordUseCase --> RecordRepository
+    RecordUseCase ---|> VoiceInput
+    VoiceToTextUseCase --up> TranslationEntity
+    VoiceToTextUseCase --> VoiceToTextRepository
 
-    interface RecordRepository {
-    }
-
-    class RecordUseCase {
-
-    }
-
-    interface VoiceInput {
-
-    }
-
-    interface Voice2TextRepository {
-
-    }
-
-    class Voice2TextUseCase {
-
-    }
-
-    TranslationUseCase -> Entity
-    TranslationUseCase ----> TranslationRepository
-    TranslationUseCase ---> TranslationOutputPort
-    RecordUseCase -> Entity
-    RecordUseCase ----> RecordRepository
-    RecordUseCase --|> VoiceInput
-    Voice2TextUseCase -> Entity
-    Voice2TextUseCase ----> Voice2TextRepository
-
-
-
-
-    note right of Entity : 不変のルール、データ
-    note right of TranslationRepository : UseCaseとDataをつなぐ
+    note right of TranslationEntity : 不変のルール、データ
 }
 
 
 package RecordController {
 
-    RecordController --> VoiceInput
+    RecordController ---> VoiceInput
 }
 
 
@@ -80,17 +95,17 @@ package Presentation {
     }
 
     View --> ViewModel
-    ViewModel --> TranslationOutputPort
+    ViewModel ---> TranslationOutputPort
     note right of View : Main Activity
 }
 
 
 package Data {
-    class TransRepoImpl {
-        - apiKey
+    class TranslationRepoImpl {
         - recordedVoice
         - voiceText
         - translatedText
+        - storeTextData()
     }
 
     class RecordRepoImpl {
@@ -98,33 +113,39 @@ package Data {
         - storeVoiceData()
     }
 
-    class Voice2TextRepoImpl {
+    class VoiceToTextRepoImpl {
+        - convertVoiceToText()
+    }
 
+    struct ApiConfig {
+        - apiKey
+        - url
     }
 
     struct InputVoiceData {
         - mp3
     }
 
-    struct Voice2TextData {
+    struct VoiceToTextData {
         - string
     }
 
 
     package DataSource {
 
-
         class RemoteDataSource {
+            -apiKey
             - translate(apiKey, originalText)
         }
     }
 
-    TransRepoImpl ..|> TranslationRepository
+    TranslationRepoImpl ..|> TranslationRepository
     RecordRepoImpl ..|> RecordRepository
     RecordRepoImpl --> InputVoiceData
-    RemoteDataSource --> TransRepoImpl
-    Voice2TextRepoImpl ..|> Voice2TextRepository
-    Voice2TextRepoImpl --> Voice2TextData
+    RemoteDataSource --> TranslationRepoImpl
+    RemoteDataSource --> ApiConfig
+    VoiceToTextRepoImpl ..|> VoiceToTextRepository
+    VoiceToTextRepoImpl --> VoiceToTextData
 
 }
 
