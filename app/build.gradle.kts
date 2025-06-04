@@ -31,11 +31,17 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "11"
+        // glanceのため変更 11 to 1.8
+        jvmTarget = "1.8"
     }
     buildFeatures {
         viewBinding = true
+        compose = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.1.0-beta03"
+    }
+
 }
 
 dependencies {
@@ -51,4 +57,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // For Glance support
+    implementation("androidx.glance:glance:1.2.0-alpha01")
+    // For AppWidgets support
+    implementation("androidx.glance:glance-appwidget:1.2.0-alpha01")
+    // For Wear-Tiles support
+    implementation("androidx.glance:glance-wear-tiles:1.0.0-alpha05")
 }

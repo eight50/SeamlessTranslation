@@ -94,6 +94,10 @@ package Presentation {
         - getData()
     }
 
+    class AppWidgetReceiver {
+
+    }
+
     View --> ViewModel
     ViewModel ---> TranslationOutputPort
     note right of View : Main Activity
