@@ -1,4 +1,4 @@
-package com.example.seamlesstranslation.ui.notifications
+package com.example.seamlesstranslation.presentation.ui.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater

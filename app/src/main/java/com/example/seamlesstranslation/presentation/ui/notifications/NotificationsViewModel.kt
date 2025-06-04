@@ -1,4 +1,4 @@
-package com.example.seamlesstranslation.ui.notifications
+package com.example.seamlesstranslation.presentation.ui.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

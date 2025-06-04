@@ -1,0 +1,141 @@
+@startuml
+
+package Domain {
+    entity Entity {
+        - originalText
+        - translatedText
+        - fromLang
+        - toLang
+    }
+
+    interface TranslationRepository {
+        - translate()
+        - storeData()
+    }
+
+    class TranslationOutputPort {
+
+    }
+
+    class TranslationUseCase {
+
+
+    }
+
+    interface RecordRepository {
+    }
+
+    class RecordUseCase {
+
+    }
+
+    interface VoiceInput {
+
+    }
+
+    interface Voice2TextRepository {
+
+    }
+
+    class Voice2TextUseCase {
+
+    }
+
+    TranslationUseCase -> Entity
+    TranslationUseCase ----> TranslationRepository
+    TranslationUseCase ---> TranslationOutputPort
+    RecordUseCase -> Entity
+    RecordUseCase ----> RecordRepository
+    RecordUseCase --|> VoiceInput
+    Voice2TextUseCase -> Entity
+    Voice2TextUseCase ----> Voice2TextRepository
+
+
+
+
+    note right of Entity : 不変のルール、データ
+    note right of TranslationRepository : UseCaseとDataをつなぐ
+}
+
+
+package RecordController {
+
+    RecordController --> VoiceInput
+}
+
+
+package Presentation {
+    class View {
+        - ViewModel
+        - update()
+        - show()
+        - onCreate()
+    }
+
+    class ViewModel {
+        - uiState
+        - originalText
+        - translatedText
+        - getData()
+    }
+
+    View --> ViewModel
+    ViewModel --> TranslationOutputPort
+    note right of View : Main Activity
+}
+
+
+package Data {
+    class TransRepoImpl {
+        - apiKey
+        - recordedVoice
+        - voiceText
+        - translatedText
+    }
+
+    class RecordRepoImpl {
+        - voiceData
+        - storeVoiceData()
+    }
+
+    class Voice2TextRepoImpl {
+
+    }
+
+    struct InputVoiceData {
+        - mp3
+    }
+
+    struct Voice2TextData {
+        - string
+    }
+
+
+    package DataSource {
+
+
+        class RemoteDataSource {
+            - translate(apiKey, originalText)
+        }
+    }
+
+    TransRepoImpl ..|> TranslationRepository
+    RecordRepoImpl ..|> RecordRepository
+    RecordRepoImpl --> InputVoiceData
+    RemoteDataSource --> TransRepoImpl
+    Voice2TextRepoImpl ..|> Voice2TextRepository
+    Voice2TextRepoImpl --> Voice2TextData
+
+}
+
+
+
+
+
+
+
+
+
+
+
+@enduml
