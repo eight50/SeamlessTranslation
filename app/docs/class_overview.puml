@@ -138,7 +138,6 @@ package Data {
     package DataSource {
 
         class RemoteDataSource {
-            -apiKey
             - translate(apiKey, originalText)
         }
     }
