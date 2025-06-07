@@ -1,6 +1,5 @@
 package com.example.seamlesstranslation.data
-import com.example.seamlesstranslation.domain.TranslationRepository
-import android.app.Service
+import com.example.seamlesstranslation.domain.repository.TranslationRepository
 
 class TranslationRepoImpl : TranslationRepository {
 

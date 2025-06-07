@@ -2,10 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--> 権限 </-->
+    <!-- 権限 -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
 
     <application
@@ -31,13 +32,13 @@
 
 
         <!-- foregroundService:ステータスバーに通知を表示し、バックグラウンド処理 -->
-
         <service
             android:name=".data.RecordRepoImpl"
             android:foregroundServiceType="microphone"
             android:exported="false">
         </service>
 
+        <!-- WidgetReceiver -->
         <receiver android:name=".widget.receiver.AppWidgetReceiver"
             android:exported="true"
             android:label="SeamlessTranslation">

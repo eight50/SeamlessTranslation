@@ -1,9 +1,8 @@
 package com.example.seamlesstranslation.data
-import com.example.seamlesstranslation.domain.VoiceToTextRepository
+import com.example.seamlesstranslation.domain.repository.VoiceToTextRepository
 
 class VoiceToTextRepoImpl : VoiceToTextRepository {
-    override suspend fun convertVoice2Text() {
+    override suspend fun convertVoiceToText() {
 
     }
-
 }

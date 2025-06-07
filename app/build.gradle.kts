@@ -10,7 +10,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.seamlesstranslation"
-        minSdk = 26
+        // MediaRecorderが31以上
+        minSdk = 31
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -75,4 +76,6 @@ dependencies {
     implementation("androidx.activity:activity-ktx:$activity_version")
     // activity-compose
     implementation("androidx.activity:activity-compose:1.10.1")
+    // ServiceCompat, NotificationCompatなど
+    implementation("androidx.core:core-ktx:1.16.0")
 }

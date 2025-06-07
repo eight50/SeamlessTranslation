@@ -1,3 +1,6 @@
 package com.example.seamlesstranslation.data
 
-data class InputVoiceData(val voice : String)
+object InputVoiceData {
+    const val fileName : String = "voiceData"
+    const val filePath : String = ""
+}
