@@ -1,18 +1,28 @@
 package com.example.seamlesstranslation.service
 
-import android.content.pm.ServiceInfo
 import android.Manifest
-import android.os.Build
-import android.app.Service
 import android.app.ForegroundServiceStartNotAllowedException
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
+import android.os.Build
 import android.os.IBinder
-import androidx.core.content.PermissionChecker
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker
+import com.example.seamlesstranslation.R
 import com.example.seamlesstranslation.data.RecordRepoImpl
 import com.example.seamlesstranslation.domain.usecase.RecordUseCase
+import com.example.seamlesstranslation.service.receiver.RecordServiceReceiver
+
+private const val LOG_TAG = "RecordService"
 
 /**
  * ForegroundServiceを起動するクラス
@@ -20,24 +30,53 @@ import com.example.seamlesstranslation.domain.usecase.RecordUseCase
  */
 class RecordService : Service() {
 
-    private lateinit var recordUseCase : RecordUseCase
-    val context : Context = this
+    private lateinit var recordUseCase: RecordUseCase
+    lateinit var context: Context
 
     override fun onCreate() {
         super.onCreate()
 
+        context = this.applicationContext
         // 依存注入
         val repoImpl = RecordRepoImpl()
         recordUseCase = RecordUseCase(repoImpl)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return super.onStartCommand(intent, flags, startId)
+        if (intent != null && intent.action != null) {
+            when (intent.action) {
+                "STOP_RECORDING" -> {
+                    recordUseCase.stopRecording()
+                    Log.d("stop", "stopRecording is ok")
+                    stopSelf()
+                }
+            }
+        }
+
+        startForeground()
+        Log.d("foreground", "Foreground is ok")
+        recordUseCase.startRecording()
+        Log.d("start", "startRecording is ok")
+
+        return START_STICKY
     }
 
-    //
-    override fun onBind(p0: Intent?): IBinder? {
-        TODO("Not yet implemented")
+    private val CHANNEL_ID = "record_service_channel"
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                "録音サービス",
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "音声録音中の通知"
+            }
+
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 
     private fun startForeground() {
@@ -52,10 +91,26 @@ class RecordService : Service() {
             stopSelf()
             return
         }
+        Log.d("permission", "ok")
 
         try {
-            val notification = NotificationCompat.Builder(this, "CHANNEL_ID")
+            createNotificationChannel()
+            val stopIntent = Intent(this, RecordServiceReceiver::class.java).apply {
+                action = "STOP_RECORDING"
+                putExtra(Notification.EXTRA_NOTIFICATION_ID, 0)
+            }
+            val stopPendingIntent: PendingIntent =
+                PendingIntent.getBroadcast(
+                    this, 0, stopIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+            val notification = NotificationCompat.Builder(this, "record_service_channel")
                 // Create the notification to display while the service is running
+                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                .setContentTitle("audioRecord")
+                .setContentText("録音中")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .addAction(R.drawable.ic_home_black_24dp, "stop", stopPendingIntent)
                 .build()
             ServiceCompat.startForeground(
                 /* service = */ this,
@@ -79,13 +134,9 @@ class RecordService : Service() {
         }
     }
 
-    private suspend fun startRecording() {
-        startForeground()
-        recordUseCase.startRecording()
-    }
+    override fun onBind(p0: Intent?): IBinder? = null
 
-    private fun stopRecording() {
-        stopSelf()
+    override fun onDestroy() {
+        super.onDestroy()
     }
-
 }
