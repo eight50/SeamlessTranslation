@@ -18,7 +18,6 @@ class RecordRepoImpl (): RecordRepository{
     private var isRecording : Boolean = false
     private val filePath : File = InputVoiceData.filePath
 
-
     override fun startRecording() {
         if(isRecording) return
 

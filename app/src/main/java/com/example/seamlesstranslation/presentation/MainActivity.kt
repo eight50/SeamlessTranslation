@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    val REQUEST_RECORD_AUDIO_PERMISSION = 200
+    private val REQUEST_RECORD_AUDIO_PERMISSION = 200
     private fun requestAudioPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
             != PackageManager.PERMISSION_GRANTED
@@ -65,10 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // 🎤 許可された
             } else {
-                // ❌ 拒否された
-
             }
         }
     }

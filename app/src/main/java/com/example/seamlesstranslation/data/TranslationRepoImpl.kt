@@ -3,11 +3,11 @@ import com.example.seamlesstranslation.domain.repository.TranslationRepository
 
 class TranslationRepoImpl : TranslationRepository {
 
-    override suspend fun translate() {
+    override fun translate() {
 
     }
 
-    override suspend fun storeData() {
+    override fun storeData() {
 
     }
 

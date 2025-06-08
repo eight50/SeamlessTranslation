@@ -40,6 +40,9 @@ class RecordService : Service() {
         recordUseCase = RecordUseCase(repoImpl)
     }
 
+    /**
+     * BroadCastReceiverで受け取ったIntentで処理
+     */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null && intent.action != null) {
             when (intent.action) {
@@ -57,11 +60,6 @@ class RecordService : Service() {
                 }
             }
         }
-
-//        startForeground()
-//        Log.d("foreground", "Foreground is ok")
-//        recordUseCase.startRecording()
-//        Log.d("start", "startRecording is ok")
 
         return START_STICKY
     }
@@ -81,10 +79,9 @@ class RecordService : Service() {
                 action = "STOP_RECORDING"
                 putExtra(Notification.EXTRA_NOTIFICATION_ID, 0)
             }
-            val stopPendingIntent: PendingIntent =
-                PendingIntent.getBroadcast(
-                    this, 0, stopIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            val stopPendingIntent: PendingIntent = PendingIntent.getBroadcast(this, 0,
+                    stopIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
                 )
             val notification = NotificationCompat.Builder(this, "record_service_channel")
                 // Create the notification to display while the service is running
