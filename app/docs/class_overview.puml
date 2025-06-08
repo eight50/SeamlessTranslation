@@ -165,10 +165,13 @@ package Data {
 package Service {
     class RecordService {
         - startForeground()
-        - startRecording()
-        - stopRecording()
     }
 
+    class RecordServiceReceiver {
+        - 通知からのIntentを受け取る
+    }
+
+    RecordServiceReceiver --> RecordService
     RecordService --> RecordUseCase
 }
 

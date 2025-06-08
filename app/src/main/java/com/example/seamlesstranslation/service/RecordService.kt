@@ -3,8 +3,6 @@ package com.example.seamlesstranslation.service
 import android.Manifest
 import android.app.ForegroundServiceStartNotAllowedException
 import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
@@ -45,6 +43,13 @@ class RecordService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null && intent.action != null) {
             when (intent.action) {
+                //GlanceWidgetから、PendingIntentを分けて飛ばせれば実装できる
+                "START_RECORDING" -> {
+                    startForeground()
+                    Log.d("foreground", "Foreground is ok")
+                    recordUseCase.startRecording()
+                    Log.d("start", "startRecording is ok")
+                }
                 "STOP_RECORDING" -> {
                     recordUseCase.stopRecording()
                     Log.d("stop", "stopRecording is ok")
@@ -53,48 +58,25 @@ class RecordService : Service() {
             }
         }
 
-        startForeground()
-        Log.d("foreground", "Foreground is ok")
-        recordUseCase.startRecording()
-        Log.d("start", "startRecording is ok")
+//        startForeground()
+//        Log.d("foreground", "Foreground is ok")
+//        recordUseCase.startRecording()
+//        Log.d("start", "startRecording is ok")
 
         return START_STICKY
     }
 
-    private val CHANNEL_ID = "record_service_channel"
-
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                "録音サービス",
-                NotificationManager.IMPORTANCE_DEFAULT
-            ).apply {
-                description = "音声録音中の通知"
-            }
-
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-    }
-
     private fun startForeground() {
         // Before starting the service as foreground check that the app has the
-        // appropriate runtime permissions. In this case, verify that the user has
-        // granted the CAMERA permission.
         val recordPermission =
             PermissionChecker.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
         if (recordPermission != PermissionChecker.PERMISSION_GRANTED) {
-            // Without camera permissions the service cannot run in the foreground
-            // Consider informing user or updating your app UI if visible.
             stopSelf()
             return
         }
         Log.d("permission", "ok")
 
         try {
-            createNotificationChannel()
             val stopIntent = Intent(this, RecordServiceReceiver::class.java).apply {
                 action = "STOP_RECORDING"
                 putExtra(Notification.EXTRA_NOTIFICATION_ID, 0)

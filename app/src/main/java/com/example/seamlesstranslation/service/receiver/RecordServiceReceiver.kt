@@ -11,9 +11,13 @@ class RecordServiceReceiver : BroadcastReceiver() {
         val action = intent.action
 
         val serviceIntent = Intent(context, RecordService::class.java)
+        val startAction : String = "START_RECORDING"
+        val stopAction : String = "STOP_RECORDING"
 
-        if ("STOP_RECORDING" == action) {
-            serviceIntent.setAction("STOP_RECORDING")
+        if (startAction == action) {
+            serviceIntent.setAction(startAction)
+        } else if (stopAction == action) {
+            serviceIntent.setAction(stopAction)
         }
 
         context.startService(serviceIntent)

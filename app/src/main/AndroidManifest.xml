@@ -46,6 +46,7 @@
         <receiver android:name=".service.receiver.RecordServiceReceiver"
             android:exported="false">
             <intent-filter>
+                <action android:name="START_RECORDING"/>
                 <action android:name="STOP_RECORDING" />
             </intent-filter>
         </receiver>
