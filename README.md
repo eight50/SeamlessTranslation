@@ -16,7 +16,7 @@ Retrofit
 できたらCoroutine  
 
 ## demo
-![Image](https://github.com/user-attachments/assets/b3141804-3313-405e-9219-90c86af79f60)
+![Image](https://github.com/user-attachments/assets/32bd70c7-e888-43b7-96a7-6a71bc2c5bf2)
 
 ## Class Diagram
 ![Image](https://github.com/user-attachments/assets/0f46fe53-4c2b-4463-8cf6-6b413b1b092a)  
