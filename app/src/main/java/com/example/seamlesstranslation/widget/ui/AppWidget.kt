@@ -1,24 +1,15 @@
 package com.example.seamlesstranslation.widget.ui
 
-import android.app.Notification
-import android.app.PendingIntent
+
 import android.content.Context
 import android.content.Intent
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Modifier
 import androidx.glance.Button
 import androidx.glance.LocalContext
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.appwidget.action.actionSendBroadcast
-import androidx.glance.appwidget.action.actionStartService
 import androidx.glance.appwidget.action.actionStartService
 import androidx.glance.appwidget.provideContent
 import androidx.glance.layout.Alignment
