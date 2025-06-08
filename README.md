@@ -7,15 +7,17 @@ Android, Kotlin, Compose 勉強用
 翻訳はDeepLAPIで行う
 
 ## 学ぶこと
-Clean Architecture + MVVM
-Glance
-Compose
-Retrofit
+Clean Architecture + MVVM  
+Kotlin  
+Glance  
+Compose  
+Retrofit  
+できたらCoroutine  
 
 ## demo
 
 ## Class Diagram
-![Image](https://github.com/user-attachments/assets/0f46fe53-4c2b-4463-8cf6-6b413b1b092a)
+![Image](https://github.com/user-attachments/assets/0f46fe53-4c2b-4463-8cf6-6b413b1b092a)  
 
 ## ToDo 
 ~~クラス図作成~~  
