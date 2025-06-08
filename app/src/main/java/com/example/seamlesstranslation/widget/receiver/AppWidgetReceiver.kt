@@ -6,6 +6,9 @@ import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import com.example.seamlesstranslation.widget.ui.AppWidget
 
+/**
+ * AppWidgetのReceiver
+ */
 class AppWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = AppWidget()
 

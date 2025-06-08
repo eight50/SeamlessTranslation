@@ -10,6 +10,7 @@ import java.io.IOException
 private const val LOG_TAG = "RecordRepoImpl"
 
 /**
+ * RecordRepositoryの具象クラス
  * MediaRecorderを使って録音する
  */
 class RecordRepoImpl (): RecordRepository{

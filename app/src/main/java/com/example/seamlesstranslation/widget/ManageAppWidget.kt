@@ -7,6 +7,9 @@ import androidx.glance.appwidget.GlanceAppWidgetManager
 import androidx.glance.appwidget.provideContent
 import androidx.glance.text.Text
 
+/**
+ * サンプルコード、あまり使い方わからない
+ */
 class ManageAppWidget : GlanceAppWidget() {
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {

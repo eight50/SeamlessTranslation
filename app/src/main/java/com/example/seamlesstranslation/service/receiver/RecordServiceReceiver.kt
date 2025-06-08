@@ -5,7 +5,9 @@ import android.content.Context
 import android.content.Intent
 import com.example.seamlesstranslation.service.RecordService
 
-
+/**
+ * RecordServiceのためのBroadCastを受け取る
+ */
 class RecordServiceReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val action = intent.action

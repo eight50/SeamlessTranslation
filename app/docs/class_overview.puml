@@ -4,8 +4,6 @@ package Domain {
 
     together {
         class TranslationEntity {
-            - originalText
-            - translatedText
             - fromLang
             - toLang
         }
@@ -90,8 +88,6 @@ package RecordController {
 package Presentation {
     class View {
         - ViewModel
-        - update()
-        - show()
         - onCreate()
     }
 
@@ -100,10 +96,6 @@ package Presentation {
         - originalText
         - translatedText
         - getData()
-    }
-
-    class AppWidgetReceiver {
-
     }
 
     View --> ViewModel
@@ -152,6 +144,7 @@ package Data {
         }
     }
 
+
     TranslationRepoImpl ..|> TranslationRepository
     RecordRepoImpl ..|> RecordRepository
     RecordRepoImpl --> InputVoiceData
@@ -167,8 +160,10 @@ package Service {
         - startForeground()
     }
 
-    class RecordServiceReceiver {
-        - 通知からのIntentを受け取る
+    package Reveiver{
+        class RecordServiceReceiver {
+            - 通知からのIntentを受け取る
+        }
     }
 
     RecordServiceReceiver --> RecordService

@@ -14,6 +14,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.seamlesstranslation.R
 import com.example.seamlesstranslation.databinding.ActivityMainBinding
 
+/**
+ * AndroidStudioのサンプルコード、permissionRequestここでしてる。要移動。
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
