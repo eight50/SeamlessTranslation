@@ -9,6 +9,7 @@ Android, Kotlin, Compose 勉強用
 ## 学ぶこと
 Clean Architecture + MVVM  
 Kotlin  
+ForegroundService  
 Glance  
 Compose  
 Retrofit  
