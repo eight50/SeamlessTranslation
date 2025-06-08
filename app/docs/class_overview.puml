@@ -185,14 +185,4 @@ package Widget {
     AppWidget --> Service.RecordService
 }
 
-
-
-
-
-
-
-
-
-
-
 @enduml
