@@ -60,22 +60,28 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    val glance_version = "1.2.0-alpha01"
     // For Glance support
-    implementation("androidx.glance:glance:1.2.0-alpha01")
+    implementation("androidx.glance:glance:$glance_version")
     // For AppWidgets support
-    implementation("androidx.glance:glance-appwidget:1.2.0-alpha01")
+    implementation("androidx.glance:glance-appwidget:$glance_version")
     // For Wear-Tiles support
     implementation("androidx.glance:glance-wear-tiles:1.0.0-alpha05")
+    val material3_version = "1.3.2"
     // material3
-    implementation("androidx.compose.material3:material3:1.3.2")
-    implementation("androidx.compose.material3:material3-window-size-class:1.3.2")
+    implementation("androidx.compose.material3:material3:$material3_version")
+    implementation("androidx.compose.material3:material3-window-size-class:$material3_version")
     implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.4.0-alpha15")
     // androidx.activity
     val activity_version = "1.10.1"
     implementation("androidx.activity:activity:$activity_version")
     implementation("androidx.activity:activity-ktx:$activity_version")
     // activity-compose
-    implementation("androidx.activity:activity-compose:1.10.1")
+    implementation("androidx.activity:activity-compose:$activity_version")
     // ServiceCompat, NotificationCompatなど
     implementation("androidx.core:core-ktx:1.16.0")
+    //Vosk:Speech recognition (is placed in MavenCentral)
+    implementation("com.alphacephei:vosk-android:0.3.32+")
+    //ffmpegのaudio部分だけ kitが開発終了で使えない
+    // implementation ("com.arthenica:ffmpeg-kit-audio:6.0-2")
 }

@@ -26,8 +26,9 @@ class RecordRepoImpl (): RecordRepository{
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFile(filePath)
             // .3gp 軽量だが音質悪い(AMR_NBEncoderで8kHzまで)
-            setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+            // Voskでテキスト化するために後でPCM(.wave)に変換
+            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
 
             try {
                 prepare()

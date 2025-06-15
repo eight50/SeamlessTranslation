@@ -8,5 +8,5 @@ import java.io.File
  */
 object InputVoiceData {
     const val fileName : String = "VoiceData.3gp"
-    val filePath : File = File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath}/${fileName}")
+    val filePath : File = File("${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath} + ${File.pathSeparator} + ${fileName}")
 }
