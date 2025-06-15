@@ -1,5 +1,6 @@
 package com.example.seamlesstranslation.data
 
+import android.content.Context
 import com.example.seamlesstranslation.domain.repository.RecordRepository
 import com.example.seamlesstranslation.data.InputVoiceData
 import android.media.MediaRecorder
@@ -13,22 +14,24 @@ private const val LOG_TAG = "RecordRepoImpl"
  * RecordRepositoryの具象クラス
  * MediaRecorderを使って録音する
  */
-class RecordRepoImpl (): RecordRepository{
+class RecordRepoImpl (
+    private val context : Context
+): RecordRepository{
     private var recorder : MediaRecorder? = null
     private var isRecording : Boolean = false
-    private val filePath : File = InputVoiceData.filePath
+    private val filePath : File = InputVoiceData(context).getFilePath()
 
     override fun startRecording() {
         if(isRecording) return
 
         Log.d("LOG_TAG", filePath.toString())
-        recorder = MediaRecorder().apply {
+        recorder = MediaRecorder(context).apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFile(filePath)
             // .3gp 軽量だが音質悪い(AMR_NBEncoderで8kHzまで)
-            // Voskでテキスト化するために後でPCM(.wave)に変換
-            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+            // OutputFormat.DEFAULTでWAVE保存可能っぽい(AndroidDevには説明無し)
+            setOutputFormat(MediaRecorder.OutputFormat.DEFAULT)
+            setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
 
             try {
                 prepare()

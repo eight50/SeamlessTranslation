@@ -160,7 +160,7 @@ package Service {
         - startForeground()
     }
 
-    package Reveiver{
+    package Receiver{
         class RecordServiceReceiver {
             - 通知からのIntentを受け取る
         }
@@ -168,6 +168,7 @@ package Service {
 
     RecordServiceReceiver --> RecordService
     RecordService --> RecordUseCase
+    RecordService --> VoiceToTextUseCase
 }
 
 package Widget {

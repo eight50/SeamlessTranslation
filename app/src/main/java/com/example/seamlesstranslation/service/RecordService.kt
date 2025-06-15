@@ -17,7 +17,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import com.example.seamlesstranslation.R
 import com.example.seamlesstranslation.data.RecordRepoImpl
+import com.example.seamlesstranslation.data.VoiceToTextRepoImpl
 import com.example.seamlesstranslation.domain.usecase.RecordUseCase
+import com.example.seamlesstranslation.domain.usecase.VoiceToTextUseCase
 import com.example.seamlesstranslation.service.receiver.RecordServiceReceiver
 
 private const val LOG_TAG = "RecordService"
@@ -29,6 +31,7 @@ private const val LOG_TAG = "RecordService"
 class RecordService : Service() {
 
     private lateinit var recordUseCase: RecordUseCase
+    private lateinit var voiceToTextUseCase :VoiceToTextUseCase
     lateinit var context: Context
 
     override fun onCreate() {
@@ -36,8 +39,10 @@ class RecordService : Service() {
 
         context = this.applicationContext
         // 依存注入
-        val repoImpl = RecordRepoImpl()
-        recordUseCase = RecordUseCase(repoImpl)
+        val recordImpl = RecordRepoImpl(context)
+        recordUseCase = RecordUseCase(recordImpl)
+        val voiceToTextImpl = VoiceToTextRepoImpl(context)
+        voiceToTextUseCase = VoiceToTextUseCase(voiceToTextImpl)
     }
 
     /**
