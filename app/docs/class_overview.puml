@@ -120,6 +120,7 @@ package Data {
     }
 
     class VoiceToTextRepoImpl {
+        - Voskを使用してテキスト化
         - convertVoiceToText()
     }
 
@@ -128,8 +129,9 @@ package Data {
         - url
     }
 
-    struct InputVoiceData {
+    class InputVoiceData {
         - filePath
+        + getFilePath()
     }
 
     struct VoiceToTextData {
