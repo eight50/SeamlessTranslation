@@ -16,7 +16,7 @@ private const val LOG_TAG = "RecordRepoImpl"
  */
 class RecordRepoImpl (
     private val context : Context
-): RecordRepository{
+): RecordRepository {
     private var recorder : MediaRecorder? = null
     private var isRecording : Boolean = false
     private val filePath : File = InputVoiceData(context).getFilePath()

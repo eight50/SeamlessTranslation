@@ -66,7 +66,8 @@ class RecordService : Service() {
             }
         }
 
-        return START_STICKY
+        // START_STICKYだと、勝手にサービスを再起動される
+        return START_NOT_STICKY
     }
 
     private fun startForeground() {

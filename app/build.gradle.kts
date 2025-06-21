@@ -82,6 +82,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.16.0")
     //Vosk:Speech recognition (is placed in MavenCentral)
     implementation("com.alphacephei:vosk-android:0.3.32+")
+    // JavaNativeAccess
+    implementation("net.java.dev.jna:jna:5.7.0")
     //ffmpegのaudio部分だけ kitが開発終了で使えない
     // implementation ("com.arthenica:ffmpeg-kit-audio:6.0-2")
 }
