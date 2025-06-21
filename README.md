@@ -10,8 +10,8 @@ VoiceToTextはVosk、翻訳はDeepLAPIで行う
 Clean Architecture + MVVM  
 Kotlin  
 ForegroundService  
-Glance  
-Compose  
+Jetpack Glance  
+Jetpack Compose  
 Retrofit  
 できたらCoroutine  
 Vosk : Speech Recognition(Apache License 2.0)  
